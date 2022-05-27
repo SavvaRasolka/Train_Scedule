@@ -1,0 +1,2089 @@
+
+#:import Factory kivy.factory.Factory
+
+<SearchMenu@Popup>:
+    background_color: (.61, .87, .95, 1)
+    background_normal: ''
+    auto_dismiss: False
+    title: "Поиск данных"
+    size_hint: .7 , .65
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: 10
+        Label:
+            text: 'Выберите условие поиска'
+            size_hint_y: None
+            height: 60
+            font_size: 20
+        BoxLayout:
+            orientation: 'vertical'
+            padding: 100, 0
+            Button:
+                text: 'По номеру поезда'
+                on_press: Factory.SearchNumTrain().open()
+                on_release: root.dismiss()
+            Button:
+                text: 'По времени отправления'
+                on_press: Factory.SearchTimeDep().open()
+                on_release: root.dismiss()
+            Button:
+                text: 'По времени прибытия'
+                on_press: Factory.SearchTimeArr().open()
+                on_release: root.dismiss()
+            Button:
+                text: 'По станции отправления'
+                on_press: Factory.SearchStDep().open()
+                on_release: root.dismiss()
+            Button:
+                text: 'По станции прибытия'
+                on_press: Factory.SearchStArr().open()
+                on_release: root.dismiss()
+            Button:
+                text: 'По времени в пути'
+                on_press: Factory.SearchTravelTime().open()
+                on_release: root.dismiss()
+        Button:
+            pos_hint: {'right':0.65}
+            size_hint: 0.3, None
+            height: 50
+            text: 'Отмена'
+            on_press: root.dismiss()
+
+
+
+<SearchStDep@Popup>:
+    background_color: (.61, .87, .95, 1)
+    background_normal: ''
+    auto_dismiss: False
+    title: "Поиск по станции отправления"
+    size_hint: 1 , .9
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            padding: 120, 10
+            size_hint_y: None
+            height: 60
+            Label:
+                text: 'Введите название станции:'
+            TextInput:
+                multiline: False
+                id: st_dep
+            Button:
+                text: 'Найти'
+                on_press: app.controller.search_by_station('dep', st_dep, tab3, found3)
+        BoxLayout:
+            padding: 0, 20
+            orientation: 'vertical'
+            Label:
+                text: 'Найденные записи:'
+                id: found3
+                font_size: 17
+                size_hint_y: None
+                height: 30
+                color: 0, 0, 0, 1
+                canvas.before:
+                    Color:
+                        rgba: .58, .94, .81, 1
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+            GridLayout:
+                size_hint_y: None
+                height: 70
+                cols: 6
+                padding: 15, 5
+                spacing:2
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    text: "Номер поезда"
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    text: "Станция отправления"
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    text: "Станция прибытия"
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    text: "Отправление"
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    text: "Прибытие"
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    text: "Время в пути"
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+            ScrollView:
+                GridLayout:
+                    size_hint_y: None
+                    height: self.minimum_height
+                    cols: 6
+                    padding: 15, 5
+                    spacing:2
+                    id: tab3
+        Button:
+            text: 'Закрыть'
+            size_hint: 0.5, None
+            pos_hint: {'right':0.75}
+            height: 40
+            on_press: root.dismiss()
+
+<SearchStArr@Popup>:
+    background_color: (.61, .87, .95, 1)
+    background_normal: ''
+    auto_dismiss: False
+    title: "Поиск по станции прибытия"
+    size_hint: 1 , .9
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            padding: 120, 10
+            size_hint_y: None
+            height: 60
+            Label:
+                text: 'Введите название станции:'
+            TextInput:
+                multiline: False
+                id: st_arr
+            Button:
+                text: 'Найти'
+                on_press: app.controller.search_by_station('arr', st_arr, tab4, found4)
+        BoxLayout:
+            padding: 0, 20
+            orientation: 'vertical'
+            Label:
+                text: 'Найденные записи:'
+                id: found4
+                font_size: 17
+                size_hint_y: None
+                height: 30
+                color: 0, 0, 0, 1
+                canvas.before:
+                    Color:
+                        rgba: .58, .94, .81, 1
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+            GridLayout:
+                size_hint_y: None
+                height: 70
+                cols: 6
+                padding: 15, 5
+                spacing:2
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    text: "Номер поезда"
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    text: "Станция отправления"
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    text: "Станция прибытия"
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    text: "Отправление"
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    text: "Прибытие"
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    text: "Время в пути"
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+            ScrollView:
+                GridLayout:
+                    size_hint_y: None
+                    height: self.minimum_height
+                    cols: 6
+                    padding: 15, 5
+                    spacing:2
+                    id: tab4
+        Button:
+            text: 'Закрыть'
+            size_hint: 0.5, None
+            pos_hint: {'right':0.75}
+            height: 40
+            on_press: root.dismiss()
+
+
+<SearchNumTrain@Popup>:
+    background_color: (.61, .87, .95, 1)
+    background_normal: ''
+    auto_dismiss: False
+    title: "Поиск по номеру поезда"
+    size_hint: 1 , .9
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            padding: 120, 10
+            size_hint_y: None
+            height: 60
+            Label:
+                text: 'Введите номер поезда:'
+            TextInput:
+                multiline: False
+                id: number_tr
+            Button:
+                text: 'Найти'
+                on_press: app.controller.search_by_number(number_tr, tab, found)
+        BoxLayout:
+            padding: 0, 20
+            orientation: 'vertical'
+            Label:
+                text: 'Найденные записи:'
+                id: found
+                font_size: 17
+                size_hint_y: None
+                height: 30
+                color: 0, 0, 0, 1
+                canvas.before:
+                    Color:
+                        rgba: .58, .94, .81, 1
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+            GridLayout:
+                size_hint_y: None
+                height: 70
+                cols: 6
+                padding: 15, 5
+                spacing:2
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    text: "Номер поезда"
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    text: "Станция отправления"
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    text: "Станция прибытия"
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    text: "Отправление"
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    text: "Прибытие"
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    text: "Время в пути"
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+            ScrollView:
+                GridLayout:
+                    size_hint_y: None
+                    height: self.minimum_height
+                    cols: 6
+                    padding: 15, 5
+                    spacing:2
+                    id: tab
+        Button:
+            text: 'Закрыть'
+            size_hint: 0.5, None
+            pos_hint: {'right':0.75}
+            height: 40
+            on_press: root.dismiss()
+
+<SearchTimeDep@Popup>:
+    background_color: (.61, .87, .95, 1)
+    background_normal: ''
+    auto_dismiss: False
+    title: "Поиск по времени отправления"
+    size_hint: 1 , .9
+    BoxLayout:
+        orientation: 'vertical'
+        GridLayout:
+            padding: 120, 10
+            spacing:3
+            size_hint_y: None
+            height: 100
+            cols: 3
+            Label:
+                text: 'Нижняя граница:'
+            Label:
+                color: 0, 0, 0, 1
+                canvas.before:
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                id: min_time
+            Button:
+                text: 'Выбрать время'
+                on_press: app.view.show_time_picker()
+                on_release: app.view.buffer = min_time
+            Label:
+                text: 'Верхняя граница:'
+            Label:
+                color: 0, 0, 0, 1
+                canvas.before:
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                id: max_time
+            Button:
+                text: 'Выбрать время'
+                on_press: app.view.show_time_picker()
+                on_release: app.view.buffer = max_time
+        Button:
+            text: 'Найти'
+            pos_hint: {'right':0.6}
+            size_hint: 0.2, None
+            height: 40
+            on_press: app.controller.search_by_time('dep', min_time, max_time, tab1, found1)
+
+        BoxLayout:
+            padding: 0, 20
+            orientation: 'vertical'
+            Label:
+                text: 'Найденные записи:'
+                id: found1
+                font_size: 17
+                size_hint_y: None
+                height: 30
+                color: 0, 0, 0, 1
+                canvas.before:
+                    Color:
+                        rgba: .58, .94, .81, 1
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+            GridLayout:
+                size_hint_y: None
+                height: 70
+                cols: 6
+                padding: 15, 5
+                spacing:2
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    text: "Номер поезда"
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    text: "Станция отправления"
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    text: "Станция прибытия"
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    text: "Отправление"
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    text: "Прибытие"
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    text: "Время в пути"
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+            ScrollView:
+                GridLayout:
+                    size_hint_y: None
+                    height: self.minimum_height
+                    cols: 6
+                    padding: 15, 5
+                    spacing:2
+                    id: tab1
+        Button:
+            text: 'Закрыть'
+            size_hint: 0.5, None
+            pos_hint: {'right':0.75}
+            height: 40
+            on_press: root.dismiss()
+
+<SearchTravelTime@Popup>:
+    background_color: (.61, .87, .95, 1)
+    background_normal: ''
+    auto_dismiss: False
+    title: "Поиск по времени в пути"
+    size_hint: 1 , .9
+    BoxLayout:
+        orientation: 'vertical'
+        GridLayout:
+            padding: 120, 10
+            spacing:3
+            size_hint_y: None
+            height: 50
+            cols: 4
+            Label:
+                text: 'Часы:'
+            TextInput:
+                multiline: False
+                id: hours_tr
+            Label:
+                text: 'Минуты:'
+            TextInput:
+                multiline: False
+                id: minutes_tr
+        Button:
+            text: 'Найти'
+            pos_hint: {'right':0.6}
+            size_hint: 0.2, None
+            height: 40
+            on_press: app.controller.search_by_travel_time(hours_tr, minutes_tr, tab, found)
+
+        BoxLayout:
+            padding: 0, 20
+            orientation: 'vertical'
+            Label:
+                text: 'Найденные записи:'
+                id: found
+                font_size: 17
+                size_hint_y: None
+                height: 30
+                color: 0, 0, 0, 1
+                canvas.before:
+                    Color:
+                        rgba: .58, .94, .81, 1
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+            GridLayout:
+                size_hint_y: None
+                height: 70
+                cols: 6
+                padding: 15, 5
+                spacing:2
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    text: "Номер поезда"
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    text: "Станция отправления"
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    text: "Станция прибытия"
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    text: "Отправление"
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    text: "Прибытие"
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    text: "Время в пути"
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+            ScrollView:
+                GridLayout:
+                    size_hint_y: None
+                    height: self.minimum_height
+                    cols: 6
+                    padding: 15, 5
+                    spacing:2
+                    id: tab
+        Button:
+            text: 'Закрыть'
+            size_hint: 0.5, None
+            pos_hint: {'right':0.75}
+            height: 40
+            on_press: root.dismiss()
+
+
+<SearchTimeArr@Popup>:
+    background_color: (.61, .87, .95, 1)
+    background_normal: ''
+    auto_dismiss: False
+    title: "Поиск по времени прибытия"
+    size_hint: 1 , .9
+    BoxLayout:
+        orientation: 'vertical'
+        GridLayout:
+            padding: 120, 10
+            spacing:3
+            size_hint_y: None
+            height: 100
+            cols: 3
+            Label:
+                text: 'Нижняя граница:'
+            Label:
+                color: 0, 0, 0, 1
+                canvas.before:
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                id: min_time
+            Button:
+                text: 'Выбрать время'
+                on_press: app.view.show_time_picker()
+                on_release: app.view.buffer = min_time
+            Label:
+                text: 'Верхняя граница:'
+            Label:
+                color: 0, 0, 0, 1
+                canvas.before:
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                id: max_time
+            Button:
+                text: 'Выбрать время'
+                on_press: app.view.show_time_picker()
+                on_release: app.view.buffer = max_time
+        Button:
+            text: 'Найти'
+            pos_hint: {'right':0.6}
+            size_hint: 0.2, None
+            height: 40
+            on_press: app.controller.search_by_time('arr', min_time, max_time, tab2, found2)
+
+        BoxLayout:
+            padding: 0, 20
+            orientation: 'vertical'
+            Label:
+                text: 'Найденные записи:'
+                id: found2
+                font_size: 17
+                size_hint_y: None
+                height: 30
+                color: 0, 0, 0, 1
+                canvas.before:
+                    Color:
+                        rgba: .58, .94, .81, 1
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+            GridLayout:
+                size_hint_y: None
+                height: 70
+                cols: 6
+                padding: 15, 5
+                spacing:2
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    text: "Номер поезда"
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    text: "Станция отправления"
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    text: "Станция прибытия"
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    text: "Отправление"
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    text: "Прибытие"
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    text: "Время в пути"
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+            ScrollView:
+                GridLayout:
+                    size_hint_y: None
+                    height: self.minimum_height
+                    height: self.minimum_height
+                    cols: 6
+                    padding: 15, 5
+                    spacing:2
+                    id: tab2
+        Button:
+            text: 'Закрыть'
+            size_hint: 0.5, None
+            pos_hint: {'right':0.75}
+            height: 40
+            on_press: root.dismiss()
+
+<AddPopup@Popup>:
+    background_color: (.61, .87, .95, 1)
+    background_normal: ''
+    auto_dismiss: False
+    title: "Добавление данных"
+    size_hint: .7 , .75
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 0, 0, 0, 10
+        Label:
+            color: 1, 1, 1, 1
+            text: 'Введите данные'
+            font_size: '20'
+            size_hint_y: None
+            height: 70
+        GridLayout:
+            cols: 2
+            padding: 100, 0, 120 ,15
+            spacing: 10, 10
+            Label:
+                color: 1, 1, 1, 1
+                text: 'Номер поезда:'
+                size_hint_x: 0.4
+            TextInput:
+                multiline: False
+                id: train_num
+            Label:
+                color: 1, 1, 1, 1
+                text: 'Станция отправления:'
+                size_hint_x: 0.5
+            TextInput:
+                multiline: False
+                id: station_from
+            Label:
+                color: 1, 1, 1, 1
+                text: 'Станция прибытия:'
+                size_hint_x: 0.4
+            TextInput:
+                multiline: False
+                id: station_to
+            Label:
+                color: 1, 1, 1, 1
+                text: 'Дата отправления:'
+                size_hint_x: 0.5
+            BoxLayout:
+                Label:
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    id: dep_d
+                Button:
+                    text: 'Выбрать дату'
+                    on_press: app.view.show_date_picker()
+                    on_release: app.view.buffer = dep_d
+            Label:
+                color: 1, 1, 1, 1
+                text: 'Время отправления:'
+                size_hint_x: 0.5
+            BoxLayout:
+                Label:
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    id: dep_t
+                Button:
+                    text: 'Выбрать время'
+                    on_press: app.view.show_time_picker()
+                    on_release: app.view.buffer = dep_t
+            Label:
+                color: 1, 1, 1, 1
+                text: 'Дата прибытия:'
+                size_hint_x: 0.5
+            BoxLayout:
+                Label:
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    id: arr_d
+                Button:
+                    text: 'Выбрать дату'
+                    on_press: app.view.show_date_picker()
+                    on_release: app.view.buffer = arr_d
+
+            Label:
+                color: 1, 1, 1, 1
+                text: 'Время прибытия:'
+                size_hint_x: 0.4
+            BoxLayout:
+                Label:
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    id: arr_t
+                Button:
+                    text: 'Выбрать время'
+                    on_press: app.view.show_time_picker()
+                    on_release: app.view.buffer = arr_t
+
+        Button:
+            text: 'Добавить'
+            size_hint: 0.4 , None
+            height: 40
+            pos_hint: {'right':0.7}
+            on_press: app.controller.add_note(root, train_num, station_from, station_to, dep_d, dep_t, arr_d, arr_t)
+        Button:
+            text: 'Отмена'
+            on_press: root.dismiss()
+            pos_hint: {'right':0.7}
+            size_hint: 0.4, None
+            height: 40
+
+<SaveToFile@Popup>:
+    background_color: (.61, .87, .95, 1)
+    background_normal: ''
+    auto_dismiss: False
+    title: "Сохранение данных"
+    size_hint: .7 , .75
+    id:savepopup
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 0, 0, 0, 10
+        FileChooserListView:
+            id:filechooser
+            on_selection:
+                savepopup.text = self.selection and self.selection[0] or ''
+        Button:
+            text: 'Сохранить'
+            size_hint: 0.5, None
+            pos_hint: {'right':0.75}
+            height: 40
+            on_press: app.save_to_file(filechooser.path)
+            on_release: Factory.SavedPopup().open()
+        Button:
+            text: 'Закрыть'
+            size_hint: 0.5, None
+            pos_hint: {'right':0.75}
+            height: 40
+            on_press: root.dismiss()
+<SavedPopup@Popup>:
+    size_hint: .4, .3
+    title: "Сохранение файла"
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 5
+        spacing: 10
+        Label:
+            id: message_label
+            size_hint_y: 0.4
+            text: "Сохранено"
+        Button:
+            text: 'Закрыть'
+            size_hint_y: 0.4
+            on_press: root.dismiss()
+
+<LoadFromFile@Popup>:
+    background_color: (.61, .87, .95, 1)
+    background_normal: ''
+    auto_dismiss: False
+    title: "Загрузка данных"
+    size_hint: .7 , .75
+    id:loadpopup
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 0, 0, 0, 10
+        FileChooserListView:
+            id:loadfilechooser
+            on_selection:
+                app.selected(loadfilechooser.selection)
+                root.dismiss()
+
+        Button:
+            text: 'Закрыть'
+            size_hint: 0.5, None
+            pos_hint: {'right':0.75}
+            height: 40
+            on_press: root.dismiss()
+
+<MainWindow>:
+    background_color: .58, .94, .81, 1
+    canvas.before:
+        Color:
+            rgba: root.background_color
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    BoxLayout:
+        orientation: 'vertical'
+        size: root.size
+
+        MDToolbar:
+            md_bg_color: .58, .94, .81, 1
+            specific_text_color: 0, 0, 0, 1
+            elevation: 10
+            size_hint: 1, .07
+            right_action_items:
+                [
+                ["text-search", lambda x: Factory.SearchMenu().open(), "Поиск"],
+                ["plus", lambda x: Factory.AddPopup().open(), "Добавить"],
+                ["delete", lambda x: Factory.DeletePopup().open(), "Удалить"],
+                ["content-save", lambda x: Factory.SaveToFile().open(), "Сохранить в файл"],
+                ["download", lambda x: Factory.LoadFromFile().open(), "Загрузить из файла"]
+                ]
+            left_action_items: [["menu", lambda x: app.view.open_menu(x)]]
+        GridLayout:
+            size_hint_y: None
+            height: 70
+            cols: 6
+            padding: 15, 5
+            spacing:2
+            Label:
+                size_hint_y: None
+                height: 60
+                text: "Номер поезда"
+                color: 0, 0, 0, 1
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, 1
+                    Rectangle:
+                        size:self.size
+                        pos: self.pos
+
+            Label:
+                size_hint_y: None
+                height: 60
+                color: 0, 0, 0, 1
+                canvas.before:
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                text: "Станция отправления"
+            Label:
+                size_hint_y: None
+                height: 60
+                color: 0, 0, 0, 1
+                canvas.before:
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                text: "Станция прибытия"
+            Label:
+                size_hint_y: None
+                height: 60
+                color: 0, 0, 0, 1
+                canvas.before:
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                text: "Отправление"
+            Label:
+                size_hint_y: None
+                height: 60
+                text: "Прибытие"
+                color: 0, 0, 0, 1
+                canvas.before:
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+            Label:
+                size_hint_y: None
+                height: 60
+                text: "Время в пути"
+                color: 0, 0, 0, 1
+                canvas.before:
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+        GridLayout:
+            cols: 6
+            padding: 15, 5
+            spacing:2
+            id: table
+
+        BoxLayout:
+            size_hint_y: None
+            height: 60
+            padding: 0,0, 50,0
+            Label:
+                id: note_on_page
+                color: 0, 0, 0, 1
+                text: 'Записей на странице: 0'
+                size: self.texture_size
+            Label:
+                id: all_notes
+                color: 0, 0, 0, 1
+                text: 'Всего записей: 0'
+                size: self.texture_size
+            Label:
+                id: all_pages
+                color: 0, 0, 0, 1
+                text: 'Всего страниц: 0'
+                size: self.texture_size
+
+            GridLayout:
+                cols: 3
+                size_hint: None, None
+                width: 150
+                height: 60
+                Label:
+                    color: 0, 0, 0, 1
+                    text: '5'
+                Label:
+                    color: 0, 0, 0, 1
+                    text: '10'
+                Label:
+
+                    color: 0, 0, 0, 1
+                    text: '15'
+                CheckBox:
+                    color: 0, 0, 0, 1
+                    active: 'down'
+                    group: 'note_per_page'
+                    on_active: app.view.set_note_per_page(5)
+                CheckBox:
+                    color: 0, 0, 0, 1
+                    group: 'note_per_page'
+                    on_active: app.view.set_note_per_page(10)
+                CheckBox:
+                    color: 0, 0, 0, 1
+                    group: 'note_per_page'
+                    on_active: app.view.set_note_per_page(15)
+
+
+        BoxLayout:
+            padding:300,0
+            size_hint_y: None
+            height: 30
+            Button:
+                text: "<<"
+                on_press: app.view.to_page(1)
+            Button:
+                text: "<"
+                on_press: app.view.previous_page()
+            Label:
+                id: cur_page
+                color: 0, 0, 0, 1
+                text: '1'
+                size_hint_x: None
+                width: 40
+            Button:
+                text: ">"
+                on_press: app.view.next_page()
+            Button:
+                text:">>"
+                on_press: app.view.to_page(app.controller.view.num_of_pages)
+
+<MsgPopup@Popup>:
+    size_hint: .4, .3
+    title: "Ошибка"
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 5
+        spacing: 10
+        Label:
+            id: message_label
+            size_hint_y: 0.4
+            text: "Введите время"
+        Button:
+            text: 'Закрыть'
+            size_hint_y: 0.4
+            on_press: root.dismiss()
+<MsgAddPopup@Popup>
+    size_hint: .4, .3
+    title: "Ошибка"
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 5
+        spacing: 10
+        Label:
+            id: message_label
+            size_hint_y: 0.4
+            text: "Неверный ввод"
+        Button:
+            text: 'Закрыть'
+            size_hint_y: 0.4
+            on_press: root.dismiss()
+<MsgAddNumberPopup@Popup>
+    size_hint: .4, .3
+    title: "Ошибка"
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 5
+        spacing: 10
+        Label:
+            id: message_label
+            size_hint_y: 0.4
+            text: "Номер поезда обозначается числом"
+        Button:
+            text: 'Закрыть'
+            size_hint_y: 0.4
+            on_press: root.dismiss()
+<MsgAddPastPopup@Popup>
+    size_hint: .4, .3
+    title: "Ошибка"
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 5
+        spacing: 10
+        Label:
+            id: message_label
+            size_hint_y: 0.4
+            text: "Неверно введена дата прибытия"
+        Button:
+            text: 'Закрыть'
+            size_hint_y: 0.4
+            on_press: root.dismiss()
+<MsgSearchPastPopup@Popup>
+    size_hint: .4, .3
+    title: "Ошибка"
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 5
+        spacing: 10
+        Label:
+            id: message_label
+            size_hint_y: 0.4
+            text: "Некорректный интервал"
+        Button:
+            text: 'Закрыть'
+            size_hint_y: 0.4
+            on_press: root.dismiss()
+<MsgAddEmptyPopup@Popup>
+    size_hint: .4, .3
+    title: "Ошибка"
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 5
+        spacing: 10
+        Label:
+            id: message_label
+            size_hint_y: 0.4
+            text: "Заполните все поля"
+        Button:
+            text: 'Закрыть'
+            size_hint_y: 0.4
+            on_press: root.dismiss()
+<MsgAddRepeatPopup@Popup>
+    size_hint: .4, .3
+    title: "Ошибка"
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 5
+        spacing: 10
+        Label:
+            id: message_label
+            size_hint_y: 0.4
+            text: "Данному поезду уже назначен маршрут на это время"
+        Button:
+            text: 'Закрыть'
+            size_hint_y: 0.4
+            on_press: root.dismiss()
+<MsgFilePopup@Popup>
+    size_hint: .4, .3
+    title: "Ошибка"
+    auto_dismiss: False
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 5
+        spacing: 10
+        Label:
+            id: message_label
+            size_hint_y: 0.4
+            text: "Неподходящий файл"
+        Button:
+            text: 'Закрыть'
+            size_hint_y: 0.4
+            on_press: root.dismiss()
+<MsgFileMissedPopup@Popup>
+    size_hint: .4, .3
+    title: "Ошибка"
+    auto_dismiss: False
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 5
+        spacing: 10
+        Label:
+            id: message_label
+            size_hint_y: 0.4
+            text: "Некоторые поезда пропущены из поврежденного файла"
+        Button:
+            text: 'Закрыть'
+            size_hint_y: 0.4
+            on_press: root.dismiss()
+
+
+<DeletePopup@Popup>:
+    background_color: (.61, .87, .95, 1)
+    background_normal: ''
+    auto_dismiss: False
+    title: "Удаление данных"
+    size_hint: .7 , .65
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: 10
+        Label:
+            text: 'Выберите условие удаления'
+            size_hint_y: None
+            height: 60
+            font_size: 20
+        BoxLayout:
+            orientation: 'vertical'
+            padding: 100, 0
+            Button:
+                text: 'По номеру поезда'
+                on_press: Factory.DeleteNumTrain().open()
+                on_release: root.dismiss()
+            Button:
+                text: 'По времени отправления'
+                on_press: Factory.DeleteTimeDep().open()
+                on_release: root.dismiss()
+            Button:
+                text: 'По времени прибытия'
+                on_press: Factory.DeleteTimeArr().open()
+                on_release: root.dismiss()
+            Button:
+                text: 'По станции отправления'
+                on_press: Factory.DeleteStDep().open()
+                on_release: root.dismiss()
+            Button:
+                text: 'По станции прибытия'
+                on_press: Factory.DeleteStArr().open()
+                on_release: root.dismiss()
+            Button:
+                text: 'По времени в пути'
+                on_press: Factory.DeleteTravelTime().open()
+                on_release: root.dismiss()
+        Button:
+            pos_hint: {'right':0.65}
+            size_hint: 0.3, None
+            height: 50
+            text: 'Отмена'
+            on_press: root.dismiss()
+
+
+
+
+
+<DeleteStDep@Popup>:
+    background_color: (.61, .87, .95, 1)
+    background_normal: ''
+    auto_dismiss: False
+    title: "Удаление по станции отправления"
+    size_hint: 1 , .9
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            padding: 120, 10
+            size_hint_y: None
+            height: 60
+            Label:
+                text: 'Введите название станции:'
+            TextInput:
+                multiline: False
+                id: st_dep
+            Button:
+                text: 'Удалить'
+                on_press: app.controller.delete_by_station('dep', st_dep, tab8, found8)
+        BoxLayout:
+            padding: 0, 20
+            orientation: 'vertical'
+            Label:
+                text: 'Удалённые записи:'
+                id: found8
+                font_size: 17
+                size_hint_y: None
+                height: 30
+                color: 0, 0, 0, 1
+                canvas.before:
+                    Color:
+                        rgba: .58, .94, .81, 1
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+            GridLayout:
+                size_hint_y: None
+                height: 70
+                cols: 6
+                padding: 15, 5
+                spacing:2
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    text: "Номер поезда"
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    text: "Станция отправления"
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    text: "Станция прибытия"
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    text: "Отправление"
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    text: "Прибытие"
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    text: "Время в пути"
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+            ScrollView:
+                GridLayout:
+                    size_hint_y: None
+                    height: self.minimum_height
+                    cols: 6
+                    padding: 15, 5
+                    spacing:2
+                    id: tab8
+        Button:
+            text: 'Закрыть'
+            size_hint: 0.5, None
+            pos_hint: {'right':0.75}
+            height: 40
+            on_press: root.dismiss()
+            on_release: app.view.show_table()
+
+<DeleteStArr@Popup>:
+    background_color: (.61, .87, .95, 1)
+    background_normal: ''
+    auto_dismiss: False
+    title: "Удаление по станции прибытия"
+    size_hint: 1 , .9
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            padding: 120, 10
+            size_hint_y: None
+            height: 60
+            Label:
+                text: 'Введите название станции:'
+            TextInput:
+                multiline: False
+                id: st_arr
+            Button:
+                text: 'Удалить'
+                on_press: app.controller.delete_by_station('arr', st_arr, tab9, found9)
+        BoxLayout:
+            padding: 0, 20
+            orientation: 'vertical'
+            Label:
+                text: 'Удалённые записи:'
+                id: found9
+                font_size: 17
+                size_hint_y: None
+                height: 30
+                color: 0, 0, 0, 1
+                canvas.before:
+                    Color:
+                        rgba: .58, .94, .81, 1
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+            GridLayout:
+                size_hint_y: None
+                height: 70
+                cols: 6
+                padding: 15, 5
+                spacing:2
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    text: "Номер поезда"
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    text: "Станция отправления"
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    text: "Станция прибытия"
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    text: "Отправление"
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    text: "Прибытие"
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    text: "Время в пути"
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+            ScrollView:
+                GridLayout:
+                    size_hint_y: None
+                    height: self.minimum_height
+                    cols: 6
+                    padding: 15, 5
+                    spacing:2
+                    id: tab9
+        Button:
+            text: 'Закрыть'
+            size_hint: 0.5, None
+            pos_hint: {'right':0.75}
+            height: 40
+            on_press: root.dismiss()
+            on_release: app.view.show_table()
+
+<DeleteNumTrain@Popup>:
+    background_color: (.61, .87, .95, 1)
+    background_normal: ''
+    auto_dismiss: False
+    title: "Удаление по номеру поезда"
+    size_hint: 1 , .9
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            padding: 120, 10
+            size_hint_y: None
+            height: 60
+            Label:
+                text: 'Введите номер поезда:'
+            TextInput:
+                multiline: False
+                id: number_tr
+            Button:
+                text: 'Удалить'
+                on_press: app.controller.delete_by_number(number_tr, tab5, found5)
+        BoxLayout:
+            padding: 0, 20
+            orientation: 'vertical'
+            Label:
+                text: ' Удалённые записия:'
+                id: found5
+                font_size: 17
+                size_hint_y: None
+                height: 30
+                color: 0, 0, 0, 1
+                canvas.before:
+                    Color:
+                        rgba: .58, .94, .81, 1
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+            GridLayout:
+                size_hint_y: None
+                height: 70
+                cols: 6
+                padding: 15, 5
+                spacing:2
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    text: "Номер поезда"
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    text: "Станция отправления"
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    text: "Станция прибытия"
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    text: "Отправление"
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    text: "Прибытие"
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    text: "Время в пути"
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+            ScrollView:
+                GridLayout:
+                    size_hint_y: None
+                    height: self.minimum_height
+                    cols: 6
+                    padding: 15, 5
+                    spacing:2
+                    id: tab5
+        Button:
+            text: 'Закрыть'
+            size_hint: 0.5, None
+            pos_hint: {'right':0.75}
+            height: 40
+            on_press: root.dismiss()
+            on_release: app.view.show_table()
+
+<DeleteTimeDep@Popup>:
+    background_color: (.61, .87, .95, 1)
+    background_normal: ''
+    auto_dismiss: False
+    title: "Удаление по времени отправления"
+    size_hint: 1 , .9
+    BoxLayout:
+        orientation: 'vertical'
+        GridLayout:
+            padding: 120, 10
+            spacing:3
+            size_hint_y: None
+            height: 100
+            cols: 3
+            Label:
+                text: 'Нижняя граница:'
+            Label:
+                color: 0, 0, 0, 1
+                canvas.before:
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                id: min_time
+            Button:
+                text: 'Выбрать время'
+                on_press: app.view.show_time_picker()
+                on_release: app.view.buffer = min_time
+            Label:
+                text: 'Верхняя граница:'
+            Label:
+                color: 0, 0, 0, 1
+                canvas.before:
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                id: max_time
+            Button:
+                text: 'Выбрать время'
+                on_press: app.view.show_time_picker()
+                on_release: app.view.buffer = max_time
+        Button:
+            text: 'Удалить'
+            pos_hint: {'right':0.6}
+            size_hint: 0.2, None
+            height: 40
+            on_press: app.controller.delete_by_time('dep', min_time, max_time, tab6, found6)
+
+        BoxLayout:
+            padding: 0, 20
+            orientation: 'vertical'
+            Label:
+                text: 'Удалённые записи:'
+                id: found6
+                font_size: 17
+                size_hint_y: None
+                height: 30
+                color: 0, 0, 0, 1
+                canvas.before:
+                    Color:
+                        rgba: .58, .94, .81, 1
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+            GridLayout:
+                size_hint_y: None
+                height: 70
+                cols: 6
+                padding: 15, 5
+                spacing:2
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    text: "Номер поезда"
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    text: "Станция отправления"
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    text: "Станция прибытия"
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    text: "Отправление"
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    text: "Прибытие"
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    text: "Время в пути"
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+            ScrollView:
+                GridLayout:
+                    size_hint_y: None
+                    height: self.minimum_height
+                    cols: 6
+                    padding: 15, 5
+                    spacing:2
+                    id: tab6
+        Button:
+            text: 'Закрыть'
+            size_hint: 0.5, None
+            pos_hint: {'right':0.75}
+            height: 40
+            on_press: root.dismiss()
+            on_release: app.view.show_table()
+
+<DeleteTravelTime@Popup>:
+    background_color: (.61, .87, .95, 1)
+    background_normal: ''
+    auto_dismiss: False
+    title: "Удаление по времени в пути"
+    size_hint: 1 , .9
+    BoxLayout:
+        orientation: 'vertical'
+        GridLayout:
+            padding: 120, 10
+            spacing:3
+            size_hint_y: None
+            height: 50
+            cols: 4
+            Label:
+                text: 'Часы:'
+            TextInput:
+                multiline: False
+                id: hours_tr
+            Label:
+                text: 'Минуты:'
+            TextInput:
+                multiline: False
+                id: minutes_tr
+        Button:
+            text: 'Удалить'
+            pos_hint: {'right':0.6}
+            size_hint: 0.2, None
+            height: 40
+            on_press: app.controller.delete_by_travel_time(hours_tr, minutes_tr, tab5, found5)
+
+        BoxLayout:
+            padding: 0, 20
+            orientation: 'vertical'
+            Label:
+                text: 'Удалённые записи:'
+                id: found5
+                font_size: 17
+                size_hint_y: None
+                height: 30
+                color: 0, 0, 0, 1
+                canvas.before:
+                    Color:
+                        rgba: .58, .94, .81, 1
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+            GridLayout:
+                size_hint_y: None
+                height: 70
+                cols: 6
+                padding: 15, 5
+                spacing:2
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    text: "Номер поезда"
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    text: "Станция отправления"
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    text: "Станция прибытия"
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    text: "Отправление"
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    text: "Прибытие"
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    text: "Время в пути"
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+            ScrollView:
+                GridLayout:
+                    size_hint_y: None
+                    height: self.minimum_height
+                    cols: 6
+                    padding: 15, 5
+                    spacing:2
+                    id: tab5
+        Button:
+            text: 'Закрыть'
+            size_hint: 0.5, None
+            pos_hint: {'right':0.75}
+            height: 40
+            on_press: root.dismiss()
+            on_release: app.view.show_table()
+
+<DeleteTimeArr@Popup>:
+    background_color: (.61, .87, .95, 1)
+    background_normal: ''
+    auto_dismiss: False
+    title: "Удаление по времени прибытия"
+    size_hint: 1 , .9
+    BoxLayout:
+        orientation: 'vertical'
+        GridLayout:
+            padding: 120, 10
+            spacing:3
+            size_hint_y: None
+            height: 100
+            cols: 3
+            Label:
+                text: 'Нижняя граница:'
+            Label:
+                color: 0, 0, 0, 1
+                canvas.before:
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                id: min_time
+            Button:
+                text: 'Выбрать время'
+                on_press: app.view.show_time_picker()
+                on_release: app.view.buffer = min_time
+            Label:
+                text: 'Верхняя граница:'
+            Label:
+                color: 0, 0, 0, 1
+                canvas.before:
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                id: max_time
+            Button:
+                text: 'Выбрать время'
+                on_press: app.view.show_time_picker()
+                on_release: app.view.buffer = max_time
+        Button:
+            text: 'Удалить'
+            pos_hint: {'right':0.6}
+            size_hint: 0.2, None
+            height: 40
+            on_press: app.controller.delete_by_time('arr', min_time, max_time, tab7, found7)
+
+        BoxLayout:
+            padding: 0, 20
+            orientation: 'vertical'
+            Label:
+                text: 'Удалённые записи:'
+                id: found7
+                font_size: 17
+                size_hint_y: None
+                height: 30
+                color: 0, 0, 0, 1
+                canvas.before:
+                    Color:
+                        rgba: .58, .94, .81, 1
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+            GridLayout:
+                size_hint_y: None
+                height: 70
+                cols: 6
+                padding: 15, 5
+                spacing:2
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    text: "Номер поезда"
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    text: "Станция отправления"
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    text: "Станция прибытия"
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    text: "Отправление"
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    text: "Прибытие"
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                Label:
+                    size_hint_y: None
+                    height: 60
+                    text: "Время в пути"
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+            ScrollView:
+                GridLayout:
+                    size_hint_y: None
+                    height: self.minimum_height
+                    height: self.minimum_height
+                    cols: 6
+                    padding: 15, 5
+                    spacing:2
+                    id: tab7
+        Button:
+            text: 'Закрыть'
+            size_hint: 0.5, None
+            pos_hint: {'right':0.75}
+            height: 40
+            on_press: root.dismiss()
+            on_release: app.view.show_table()
+
